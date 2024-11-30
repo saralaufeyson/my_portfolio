@@ -1,4 +1,7 @@
+"use client";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function Project() {
 	const projects = [
@@ -24,8 +27,10 @@ export default function Project() {
 		},
 	];
 
+	const [isHovered, setIsHovered] = useState(false);
+
 	return (
-		<section className="min-h-screen p-8" id="#project">
+		<section className="min-h-screen p-8" id="project">
 			<div className="max-w-6xl mx-auto">
 				<h1 className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica my-14">
 					My Project Works
@@ -46,20 +51,30 @@ export default function Project() {
 							</div>
 						))}
 					</div>
-					<div className="space-y-10">
+					<Link
+						href={"https://momentum-mosiac-laya.blogspot.com/"}
+						target="_blank"
+						className="space-y-10"
+						onMouseEnter={() => setIsHovered(true)}
+						onMouseLeave={() => setIsHovered(false)}
+					>
 						<div
-							className={`bg-[#02180EBF] w-full rounded-3xl border border-[#FCE0B8] flex items-center justify-evenly p-10 gap-x-10`}
+							className={`bg-[#02180EBF] text-[#FCE0B8] hover:bg-[#FCE0B8] hover:text-[#02180EBF] w-full rounded-3xl border border-[#FCE0B8] flex items-center justify-evenly p-10 gap-x-10 cursor-pointer`}
+							onMouseEnter={() => setIsHovered(true)}
+							onMouseLeave={() => setIsHovered(false)}
 						>
 							<Image src={"blog.svg"} alt="image" width={150} height={130} />
-							<h2 className="text-[#FCE0B8] font-crimson-text text-5xl">
-								Visit my blog
+							<h2 className="text-[#FCE0B8] hover:text-[#02180EBF] font-crimson-text text-5xl">
+								{isHovered ? "Momentum Mosiac" : "Visit my blog"}
 							</h2>
 						</div>
-					</div>
+					</Link>
 				</div>
-				<p className="text-white font-liber-baskerville text-2xl text-center">
-					VIEW ALL PROJECTS
-				</p>
+				<Link href={"/projects"}>
+					<p className="text-white font-liber-baskerville text-2xl text-center">
+						VIEW ALL PROJECTS
+					</p>
+				</Link>
 			</div>
 		</section>
 	);

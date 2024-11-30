@@ -1,77 +1,154 @@
+"use client";
 import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+// Animation variants for smooth transitions
+const pageVariants = {
+	initial: {
+		opacity: 0,
+		scale: 0.95,
+		x: "-50%",
+	},
+	in: {
+		opacity: 1,
+		scale: 1,
+		x: 0,
+		transition: {
+			duration: 0.5,
+			ease: "easeInOut",
+		},
+	},
+	out: {
+		opacity: 0,
+		scale: 1.05,
+		x: "50%",
+		transition: {
+			duration: 0.5,
+			ease: "easeInOut",
+		},
+	},
+};
+
+const skillsVariants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			duration: 0.6,
+			staggerChildren: 0.1,
+		},
+	},
+};
+
+const skillItemVariants = {
+	hidden: { opacity: 0, x: -20 },
+	visible: { opacity: 1, x: 0 },
+};
 
 export default function Education() {
-	return (
-		<section className="min-h-screen p-8" id="#education">
-			<div className="max-w-4xl mx-auto">
-				<div className="flex items-start justify-center gap-4 mb-16">
-					<span className="text-[#C88D28] text-4xl">&lt;</span>
-					<h1 className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica">
-						Education
-					</h1>
-					<span className="text-[#C88D28] text-4xl">&gt;</span>
-				</div>
+	const [currentSection, setCurrentSection] = React.useState<
+		"education" | "work"
+	>("education");
 
-				<div className="relative">
-					{/* Timeline entries */}
-					<div className="space-y-20">
-						<TimelineEntry
-							year="2025"
-							institution="Presidency University"
-							qualification="B.tech CSE"
-							active={true}
-							isFirst={true}
-						/>
-						<TimelineEntry
-							year="2021"
-							institution="Cluny Convent PU College"
-							qualification="PU-Science"
-							active={false}
-						/>
-						<TimelineEntry
-							year="2018"
-							institution="St.Philomenas English School"
-							qualification="HighSchool"
-							active={false}
-							isLast={true}
-						/>
-					</div>
-				</div>
-			</div>
+	React.useEffect(() => {
+		// Section switching interval
+		const intervalId = setInterval(() => {
+			setCurrentSection((prev) =>
+				prev === "education" ? "work" : "education",
+			);
+		}, 3000);
+
+		// Cleanup interval on unmount
+		return () => clearInterval(intervalId);
+	}, []);
+
+	return (
+		<section className="min-h-screen p-8" id="education">
+			{/* Animated Section Switcher */}
+			<AnimatePresence mode="wait">
+				<motion.div
+					key={currentSection}
+					initial="initial"
+					animate="in"
+					exit="out"
+					variants={pageVariants}
+				>
+					{currentSection === "education" ? (
+						<EducationSection />
+					) : (
+						<WorkSection />
+					)}
+				</motion.div>
+			</AnimatePresence>
+
+			{/* Animated Skills Section */}
 			<div className="max-w-6xl mx-auto mt-24">
-				<h1 className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica my-14">
+				<motion.h1
+					initial={{ opacity: 0, scale: 0.9 }}
+					animate={{ opacity: 1, scale: 1 }}
+					transition={{ duration: 0.5 }}
+					className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica my-14"
+				>
 					My Skills
-				</h1>
-				<div className="border border-[#DDDFCF] bg-[#0E0D09BF] grid grid-cols-2 p-16">
+				</motion.h1>
+				<motion.div
+					initial="hidden"
+					animate="visible"
+					variants={skillsVariants}
+					className="border border-[#DDDFCF] bg-[#0E0D09BF] grid grid-cols-2 p-16"
+				>
 					<div className="grid place-items-center gap-y-5">
-						<div className="flex items-center gap-5">
+						<motion.div
+							variants={skillItemVariants}
+							className="flex items-center gap-5"
+						>
 							<FireActiveIcon />
 							<p className="text-4xl font-liber-baskerville text-white">
 								Soft Skills
 							</p>
-						</div>
-						<div className="font-liber-baskerville text-white text-2xl list-none space-y-3 pl-4">
-							<li> - Adaptability</li>
-							<li>- Team leader</li>
-							<li>- Creativity</li>
-							<li>- Public speaking</li>
-						</div>
+						</motion.div>
+						<motion.div
+							variants={skillItemVariants}
+							className="font-liber-baskerville text-white text-2xl list-none space-y-3 pl-4"
+						>
+							<motion.li variants={skillItemVariants}>
+								{" "}
+								- Adaptability
+							</motion.li>
+							<motion.li variants={skillItemVariants}>- Team leader</motion.li>
+							<motion.li variants={skillItemVariants}>- Creativity</motion.li>
+							<motion.li variants={skillItemVariants}>
+								- Public speaking
+							</motion.li>
+						</motion.div>
 					</div>
 					<div className="grid place-items-center gap-y-5">
-						<div className="flex items-center gap-5">
+						<motion.div
+							variants={skillItemVariants}
+							className="flex items-center gap-5"
+						>
 							<FireRedIcon />
 							<p className="text-4xl font-liber-baskerville text-white">
 								Hard Skills
 							</p>
-						</div>
-						<div className="font-liber-baskerville text-white text-2xl list-none space-y-3 pl-4">
-							<li> - UI/UX Designer</li>
-							<li>- React Development</li>
-							<li>- Java</li>
-							<li>- Python</li>
-						</div>
+						</motion.div>
+						<motion.div
+							variants={skillItemVariants}
+							className="font-liber-baskerville text-white text-2xl list-none space-y-3 pl-4"
+						>
+							<motion.li variants={skillItemVariants}>
+								{" "}
+								- UI/UX Designer
+							</motion.li>
+							<motion.li variants={skillItemVariants}>
+								- React Development
+							</motion.li>
+							<motion.li variants={skillItemVariants}>- Java</motion.li>
+							<motion.li variants={skillItemVariants}>- Python</motion.li>
+						</motion.div>
 					</div>
-				</div>
+				</motion.div>
 			</div>
 		</section>
 	);
@@ -80,11 +157,88 @@ export default function Education() {
 interface TimelineEntryProps {
 	year: string;
 	institution: string;
-	qualification: string;
+	qualification?: string;
 	active: boolean;
 	isFirst?: boolean;
 	isLast?: boolean;
 }
+
+const EducationSection = () => {
+	return (
+		<div className="max-w-4xl mx-auto" id="education-section">
+			<div className="flex items-start justify-center gap-4 mb-16">
+				<span className="text-[#C88D28] text-4xl">&lt;</span>
+				<h1 className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica">
+					Education
+				</h1>
+				<span className="text-[#C88D28] text-4xl">&gt;</span>
+			</div>
+
+			<div className="relative">
+				{/* Timeline entries */}
+				<div className="space-y-20">
+					<TimelineEntry
+						year="2025"
+						institution="Presidency University"
+						qualification="B.tech CSE"
+						active={true}
+						isFirst={true}
+					/>
+					<TimelineEntry
+						year="2021"
+						institution="Cluny Convent PU College"
+						qualification="PU-Science"
+						active={false}
+					/>
+					<TimelineEntry
+						year="2018"
+						institution="St.Philomenas English School"
+						qualification="HighSchool"
+						active={false}
+						isLast={true}
+					/>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+const WorkSection = () => {
+	return (
+		<div className="max-w-4xl mx-auto" id="work-section">
+			<div className="flex items-start justify-center gap-4 mb-16">
+				<span className="text-[#C88D28] text-4xl">&lt;</span>
+				<h1 className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica">
+					Work Experience
+				</h1>
+				<span className="text-[#C88D28] text-4xl">&gt;</span>
+			</div>
+
+			<div className="relative">
+				{/* Timeline entries */}
+				<div className="space-y-20">
+					<TimelineEntry
+						year="2024"
+						institution="KrewsUp Technologies"
+						active={true}
+						isFirst={true}
+					/>
+					<TimelineEntry
+						year="2023"
+						institution="Vikasana Workshop Lead"
+						active={false}
+					/>
+					<TimelineEntry
+						year="2022"
+						institution="Vikasana Developer"
+						active={false}
+						isLast={true}
+					/>
+				</div>
+			</div>
+		</div>
+	);
+};
 
 const TimelineEntry = ({
 	year,

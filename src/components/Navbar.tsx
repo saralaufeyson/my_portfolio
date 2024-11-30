@@ -1,33 +1,34 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 export default function Navbar() {
 	const navData = [
 		{
 			id: 0,
 			name: "About",
-			link: "#about",
+			link: "about",
 		},
 		{
 			id: 1,
 			name: "Education",
-			link: "#education",
+			link: "education",
 		},
 		{
 			id: 2,
 			name: "Project Works",
-			link: "#project",
+			link: "project",
 		},
 		{
 			id: 3,
 			name: "Contact",
-			link: "#contact",
+			link: "contact",
 		},
 	];
 
-	const [active, setActive] = useState("#about");
+	const [active, setActive] = useState("about");
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 	const toggleMobileMenu = () => {
@@ -43,20 +44,49 @@ export default function Navbar() {
 	const handleNavItemClick = (link: string): void => {
 		setActive(link);
 		setMobileMenuOpen(false);
+		const element = document.getElementById(link);
+		if (element) {
+			element.scrollIntoView({ behavior: "smooth" });
+		}
 	};
+
+	useEffect(() => {
+		const handleScroll = () => {
+			const scrollPosition = window.scrollY;
+			const sections = navData.map((item) =>
+				document.getElementById(item.link),
+			);
+			const currentSection = sections.findIndex((section) => {
+				if (section) {
+					const offsetTop = section.offsetTop;
+					const offsetBottom = offsetTop + section.offsetHeight;
+					return scrollPosition >= offsetTop && scrollPosition < offsetBottom;
+				}
+				return false;
+			});
+			if (currentSection !== -1) {
+				setActive(navData[currentSection].link);
+			}
+		};
+
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
 	return (
 		<nav className="p-4 flex items-center justify-start relative">
 			{/* Logo */}
-			<div>
-				<Image
-					src="/lamp.svg"
-					alt="logo"
-					width={30}
-					height={30}
-					className="mr-10"
-				/>
-			</div>
+			<Link href={"/"}>
+				<div>
+					<Image
+						src="/lamp.svg"
+						alt="logo"
+						width={30}
+						height={30}
+						className="mr-10"
+					/>
+				</div>
+			</Link>
 
 			{/* Desktop Navigation */}
 			<div className="md:flex items-center space-x-4 hidden">
@@ -71,19 +101,26 @@ export default function Navbar() {
 									: ""
 							}`}
 					>
-						{data.name}
+						<button className="focus:outline-none focus:ring-2 focus:ring-[#FCE0B8] focus:ring-opacity-50 rounded-md p-2">
+							{data.name}
+						</button>
 					</li>
 				))}
 			</div>
 
 			{/* Name */}
-			<p className="absolute left-1/2 transform translate-x-1/2 flex items-center bg-gradient-to-r from-[#C88D28] to-[#88431B] bg-clip-text text-transparent font-aclonica text-3xl decoration-solid cursor-pointer max-md:text-xl">
+			{/* <p className="absolute left-1/2 transform -translate-x-1/2 flex items-center bg-gradient-to-r from-[#C88D28] to-[#88431B] bg-clip-text text-transparent font-aclonica text-3xl decoration-solid cursor-pointer max-md:text-xl">
 				K LAYA SREE
-			</p>
+			</p> */}
 
 			{/* Mobile Menu Toggle */}
 			<div className="md:hidden">
-				<button onClick={toggleMobileMenu} className="text-[#FCE0B8]">
+				<button
+					onClick={toggleMobileMenu}
+					className="text-[#FCE0B8] focus:outline-none focus:ring-2 focus:ring-[#FCE0B8] focus:ring-opacity-50 rounded-md p-2"
+					aria-expanded={mobileMenuOpen}
+					aria-label="Toggle navigation menu"
+				>
 					{mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
 				</button>
 			</div>
@@ -103,7 +140,9 @@ export default function Navbar() {
 											: ""
 									}`}
 							>
-								{data.name}
+								<button className="focus:outline-none focus:ring-2 focus:ring-[#FCE0B8] focus:ring-opacity-50 rounded-md p-2">
+									{data.name}
+								</button>
 							</li>
 						))}
 					</ul>
