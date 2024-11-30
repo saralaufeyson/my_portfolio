@@ -64,7 +64,7 @@ export default function Education() {
 	}, []);
 
 	return (
-		<section className="min-h-screen p-8" id="education">
+		<section className="min-h-screen p-4 sm:p-8" id="education">
 			{/* Animated Section Switcher */}
 			<AnimatePresence mode="wait">
 				<motion.div
@@ -83,12 +83,12 @@ export default function Education() {
 			</AnimatePresence>
 
 			{/* Animated Skills Section */}
-			<div className="max-w-6xl mx-auto mt-24">
+			<div className="max-w-6xl mx-auto mt-12 sm:mt-24">
 				<motion.h1
 					initial={{ opacity: 0, scale: 0.9 }}
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ duration: 0.5 }}
-					className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica my-14"
+					className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] text-4xl sm:text-6xl font-aclonica my-8 sm:my-14"
 				>
 					My Skills
 				</motion.h1>
@@ -96,7 +96,7 @@ export default function Education() {
 					initial="hidden"
 					animate="visible"
 					variants={skillsVariants}
-					className="border border-[#DDDFCF] bg-[#0E0D09BF] grid grid-cols-2 p-16"
+					className="border border-[#DDDFCF] bg-[#0E0D09BF] grid grid-cols-1 sm:grid-cols-2 p-8 sm:p-16 gap-8"
 				>
 					<div className="grid place-items-center gap-y-5">
 						<motion.div
@@ -104,18 +104,15 @@ export default function Education() {
 							className="flex items-center gap-5"
 						>
 							<FireActiveIcon />
-							<p className="text-4xl font-liber-baskerville text-white">
+							<p className="text-2xl sm:text-4xl font-liber-baskerville text-white">
 								Soft Skills
 							</p>
 						</motion.div>
 						<motion.div
 							variants={skillItemVariants}
-							className="font-liber-baskerville text-white text-2xl list-none space-y-3 pl-4"
+							className="font-liber-baskerville text-white text-lg sm:text-2xl list-none space-y-3 pl-4"
 						>
-							<motion.li variants={skillItemVariants}>
-								{" "}
-								- Adaptability
-							</motion.li>
+							<motion.li variants={skillItemVariants}>- Adaptability</motion.li>
 							<motion.li variants={skillItemVariants}>- Team leader</motion.li>
 							<motion.li variants={skillItemVariants}>- Creativity</motion.li>
 							<motion.li variants={skillItemVariants}>
@@ -129,16 +126,15 @@ export default function Education() {
 							className="flex items-center gap-5"
 						>
 							<FireRedIcon />
-							<p className="text-4xl font-liber-baskerville text-white">
+							<p className="text-2xl sm:text-4xl font-liber-baskerville text-white">
 								Hard Skills
 							</p>
 						</motion.div>
 						<motion.div
 							variants={skillItemVariants}
-							className="font-liber-baskerville text-white text-2xl list-none space-y-3 pl-4"
+							className="font-liber-baskerville text-white text-lg sm:text-2xl list-none space-y-3 pl-4"
 						>
 							<motion.li variants={skillItemVariants}>
-								{" "}
 								- UI/UX Designer
 							</motion.li>
 							<motion.li variants={skillItemVariants}>
@@ -165,18 +161,18 @@ interface TimelineEntryProps {
 
 const EducationSection = () => {
 	return (
-		<div className="max-w-4xl mx-auto" id="education-section">
-			<div className="flex items-start justify-center gap-4 mb-16">
-				<span className="text-[#C88D28] text-4xl">&lt;</span>
-				<h1 className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica">
+		<div className="max-w-4xl mx-auto p-4 sm:p-0" id="education-section">
+			<div className="flex items-start justify-center gap-2 sm:gap-4 mb-8 sm:mb-16">
+				<span className="text-[#C88D28] text-3xl sm:text-4xl">&lt;</span>
+				<h1 className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] text-4xl sm:text-6xl font-aclonica">
 					Education
 				</h1>
-				<span className="text-[#C88D28] text-4xl">&gt;</span>
+				<span className="text-[#C88D28] text-3xl sm:text-4xl">&gt;</span>
 			</div>
 
 			<div className="relative">
 				{/* Timeline entries */}
-				<div className="space-y-20">
+				<div className="space-y-12 sm:space-y-20">
 					<TimelineEntry
 						year="2025"
 						institution="Presidency University"
@@ -205,18 +201,18 @@ const EducationSection = () => {
 
 const WorkSection = () => {
 	return (
-		<div className="max-w-4xl mx-auto" id="work-section">
-			<div className="flex items-start justify-center gap-4 mb-16">
-				<span className="text-[#C88D28] text-4xl">&lt;</span>
-				<h1 className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica">
+		<div className="max-w-4xl mx-auto p-4 sm:p-0" id="work-section">
+			<div className="flex items-start justify-center gap-2 sm:gap-4 mb-8 sm:mb-16">
+				<span className="text-[#C88D28] text-3xl sm:text-4xl">&lt;</span>
+				<h1 className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] text-4xl sm:text-6xl font-aclonica">
 					Work Experience
 				</h1>
-				<span className="text-[#C88D28] text-4xl">&gt;</span>
+				<span className="text-[#C88D28] text-3xl sm:text-4xl">&gt;</span>
 			</div>
 
 			<div className="relative">
 				{/* Timeline entries */}
-				<div className="space-y-20">
+				<div className="space-y-12 sm:space-y-20">
 					<TimelineEntry
 						year="2024"
 						institution="KrewsUp Technologies"
@@ -249,17 +245,18 @@ const TimelineEntry = ({
 	isLast,
 }: TimelineEntryProps) => {
 	return (
-		<div className="flex items-start gap-8">
-			<div className="w-24 text-white text-4xl font-liber-baskerville">
+		<div className="flex items-start gap-4 sm:gap-8">
+			<div className="w-16 sm:w-24 text-white text-2xl sm:text-4xl font-liber-baskerville">
 				{year}
 			</div>
 			<div className="relative">
 				{/* Adjusted vertical line */}
-
 				<div
 					className={`absolute left-1/2 w-0.5 bg-[#C88D28] -z-10 ${
 						isFirst ? "top-1/2" : "-top-10"
-					} ${isLast ? "h-full" : "h-[calc(100%+180px)]"}`}
+					} ${
+						isLast ? "h-full" : "h-[calc(100%+100px)] sm:h-[calc(100%+180px)]"
+					}`}
 				/>
 				{/* Fire icon positioned with z-index */}
 				<div className="relative z-10">
@@ -267,8 +264,12 @@ const TimelineEntry = ({
 				</div>
 			</div>
 			<div className="text-white">
-				<h2 className="text-4xl font-liber-baskerville mb-2">{institution}</h2>
-				<p className="text-3xl font-liber-baskerville">{qualification}</p>
+				<h2 className="text-2xl sm:text-4xl font-liber-baskerville mb-1 sm:mb-2">
+					{institution}
+				</h2>
+				<p className="text-xl sm:text-3xl font-liber-baskerville">
+					{qualification}
+				</p>
 			</div>
 		</div>
 	);

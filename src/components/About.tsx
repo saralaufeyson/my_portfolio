@@ -16,11 +16,13 @@ const HobbyCard = React.memo(
 			<motion.div
 				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
-				className={`bg-[#02180EBF] w-[80%] rounded-3xl border border-[#FCE0B8] flex ${className} items-center justify-evenly p-10 gap-x-24`}
+				className={`bg-[#02180EBF] w-full md:w-[80%] rounded-3xl border border-[#FCE0B8] flex flex-col md:flex-row ${className} items-center justify-evenly p-5 md:p-10 gap-y-10 md:gap-x-24`}
 			>
-				<div className="space-y-24">
-					<h2 className="text-[#FCE0B8] font-crimson-text text-5xl">{title}</h2>
-					<p className="text-white font-liber-baskerville text-3xl max-w-xl">
+				<div className="space-y-6 md:space-y-24 text-center md:text-left">
+					<h2 className="text-[#FCE0B8] font-crimson-text text-3xl md:text-5xl">
+						{title}
+					</h2>
+					<p className="text-white font-liber-baskerville text-lg md:text-3xl max-w-xl">
 						{description}
 					</p>
 				</div>
@@ -33,9 +35,10 @@ const HobbyCard = React.memo(
 					<Image
 						src={image}
 						alt={`Illustration for ${title}`}
-						width={350}
-						height={330}
+						width={250}
+						height={230}
 						priority={false}
+						className="w-[150px] h-[150px] md:w-[350px] md:h-[330px]"
 					/>
 				</motion.div>
 			</motion.div>
@@ -93,12 +96,12 @@ export default function About() {
 	return (
 		<section className="mt-24 min-h-screen" id="about">
 			{/* Name and Dynamic Titles */}
-			<div className="space-y-1">
+			<div className="space-y-1 text-center lg:text-left">
 				<motion.h1
 					initial={{ y: -50, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ duration: 1 }}
-					className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica"
+					className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-4xl md:text-6xl font-aclonica"
 				>
 					K Laya Sree
 				</motion.h1>
@@ -108,19 +111,19 @@ export default function About() {
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 1 }}
-					className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-4xl font-liber-baskerville"
+					className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-2xl md:text-4xl font-liber-baskerville"
 				>
 					{titles[titleIndex]}
 				</motion.h1>
 			</div>
 
 			{/* About Me Section */}
-			<div className="mt-40 space-y-5">
+			<div className="mt-20 md:mt-40 space-y-5 px-5 md:px-0">
 				<motion.h1
 					initial={{ y: -50, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ duration: 1 }}
-					className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica"
+					className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-4xl md:text-6xl font-aclonica"
 				>
 					About Me
 				</motion.h1>
@@ -128,7 +131,7 @@ export default function About() {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ duration: 1.5 }}
-					className="text-[#FCE0B8] font-liber-baskerville text-3xl text-justify"
+					className="text-[#FCE0B8] font-liber-baskerville text-lg md:text-3xl text-justify"
 				>
 					I am K Layasree, a final-year B.Tech student in Computer Science and
 					Engineering, deeply passionate about understanding and exploring the
@@ -151,11 +154,11 @@ export default function About() {
 					initial={{ y: -50, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ duration: 1 }}
-					className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-6xl font-aclonica mb-16"
+					className="bg-clip-text text-transparent bg-gradient-to-br from-[#6C2315] to-[#C88D28] bg-[length:200%_200%] bg-[position:14.53%_76.67%] text-4xl md:text-6xl font-aclonica mb-16"
 				>
 					Things I Love to Do
 				</motion.h1>
-				<div className="grid place-items-center gap-4 gap-y-20">
+				<div className="grid place-items-center gap-10 md:gap-20">
 					{/* Render hobbies with alternating layout */}
 					{hobbies.map((hobby, index) => (
 						<HobbyCard
@@ -163,7 +166,9 @@ export default function About() {
 							title={hobby.title}
 							description={hobby.description}
 							image={hobby.image}
-							className={index % 2 === 0 ? "" : "flex-row-reverse"}
+							className={
+								index % 2 === 0 ? "" : "flex-col-reverse md:flex-row-reverse"
+							}
 						/>
 					))}
 				</div>
